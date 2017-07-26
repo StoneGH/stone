@@ -23,3 +23,15 @@
 ```ipconfig``` 查看网络配置
 
 ```ping 主机地址``` 检测网络是否连通
+
+```netstat -ano|findstr "port"``` 查找端口号是否使用
+
+```tasklist |findstr "PID"``` 根据进程号查找应用程序
+
+```appwiz.cpl``` 打开程序卸载
+
+```notepad``` 打开记事本
+
+```calc``` 打开计算器
+
+
