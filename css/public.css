@@ -20,3 +20,19 @@ img {
 	border: none;
 	vertical-align: middle;
 }
+
+
+/*
+ * 清除浮动
+ * 参考： http://blog.csdn.net/nnnaix/article/details/54849680
+ */
+.clearfix:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	clear: both;
+}
+
+.clearfix {
+	zoom: 1;
+}
