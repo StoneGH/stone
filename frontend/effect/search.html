@@ -36,6 +36,9 @@
 				$(".sea_btn").click(function() {
 					//获得搜索的文本
 					var searchText = $(this).prev().val().trim();
+					if(searchText.length < 1) {
+						return;
+					}
 					if(HIS_SEARCH_COOKIE == null || HIS_SEARCH_COOKIE == "") {
 						HIS_SEARCH_COOKIE = searchText;
 					} else {
