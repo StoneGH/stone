@@ -4,20 +4,105 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>搜索</title>
+		<link rel="stylesheet" type="text/css" href="../../css/public.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/layout.css" />
+		<script src="../../js/jquery-2.2.4.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+		<script type="text/javascript">
+			//			$.removeCookie("HIS_SEARCH_COOKIE", {
+			//				path: '/'
+			//			});
+			$(function() {
+				var HIS_SEARCH_COOKIE = $.cookie("HIS_SEARCH_COOKIE");
+				if(null == HIS_SEARCH_COOKIE) {
+					HIS_SEARCH_COOKIE = "";
+				}
+				$(".sea_input").focus(function() {
+					if(HIS_SEARCH_COOKIE) {
+						var his = HIS_SEARCH_COOKIE.split(",");
+						var html = '';
+						for(var i = 0; i < his.length; i++) {
+							html += '<a href=""><span>' + his[i] + '</span></a>';
+						}
+						$(".search_his").html(html);
+					}
+					$(".search_box>.search_his").show();
+				});
+				$(".sea_input").blur(function() {
+					$(".search_box .search_his").hide();
+				});
+
+				//执行搜索
+				$(".sea_btn").click(function() {
+					//获得搜索的文本
+					var searchText = $(this).prev().val().trim();
+					if(HIS_SEARCH_COOKIE == null || HIS_SEARCH_COOKIE == "") {
+						HIS_SEARCH_COOKIE = searchText;
+					} else {
+						HIS_SEARCH_COOKIE = searchText + "," + HIS_SEARCH_COOKIE;
+					}
+					$.cookie("HIS_SEARCH_COOKIE", HIS_SEARCH_COOKIE, {
+						expires: 7,
+						path: '/'
+					});
+				});
+			});
+		</script>
 		<style type="text/css">
-			.container{
-				width: 1200px;
-				margin: 0 auto;
+			.search_box {
+				height: 40px;
+				border: 2px solid #ff4040;
+				display: inline-block;
+				margin-top: 100px;
 			}
-			.search_box {}
+			
+			.search_box .sea_input {
+				width: 650px;
+				border: none;
+				vertical-align: middle;
+				padding: 0 10px;
+				color: #333;
+				font-size: 16px;
+			}
+			
+			.search_box .sea_btn {
+				width: 100px;
+				height: 40px;
+				border: none;
+				background-color: #ff4040;
+				color: #fff;
+				font-weight: bold;
+				font-size: 16px;
+				letter-spacing: 3px;
+				cursor: pointer;
+			}
+			
+			.search_box .search_his {
+				width: 673px;
+				height: 200px;
+				background-color: #f8f8f8;
+				border: 1px solid #ccc;
+				text-align: left;
+				display: none;
+			}
+			
+			.search_box .search_his span {
+				display: inline-block;
+				padding: 5px 10px;
+				background: #fff;
+				border: 1px solid #e1e1e1;
+				margin: 8px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="container">
-			<div style="search_box">
-				<input type="text" class="sea_input" />
-				<button type="button">搜索</button>
+			<div class="search_box clearfix">
+				<input type="text" class="sea_input" placeholder="输入商品名称进行搜索" />
+				<button type="button" class="sea_btn">搜索</button>
+				<div class="search_his">
+				</div>
 			</div>
 		</div>
 	</body>

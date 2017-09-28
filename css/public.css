@@ -26,6 +26,12 @@ img {
 	vertical-align: middle;
 }
 
+input,
+textarea,
+button {
+	outline: none;
+}
+
 
 /*
  * 清除浮动
