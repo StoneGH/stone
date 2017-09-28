@@ -1,3 +1,8 @@
+/*
+ * public css
+ * author：Stone
+ */
+
 * {
 	margin: 0;
 	padding: 0;
@@ -26,6 +31,7 @@ img {
  * 清除浮动
  * 参考： http://blog.csdn.net/nnnaix/article/details/54849680
  */
+
 .clearfix:after {
 	content: "\0020";
 	display: block;
