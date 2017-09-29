@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>购物车</title>
+		<link rel="stylesheet" type="text/css" href="../../css/public.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/layout.css" />
+		<style type="text/css">
+			.scard-box {
+				height: 40px;
+				width: 150px;
+				background-color: #fff;
+				border: 1px solid #e3e4e5;
+				text-align: center;
+				position: absolute;
+				right: 200px;
+				top: 100px;
+				background: #F9F9F9;
+			}
+			
+			.scard-box .scard-icon {
+				display: inline-block;
+				line-height: 40px;
+				position: relative;
+			}
+			
+			.scard-box .scard-icon a {
+				color: #f30213;
+			}
+			
+			.scard-box .scard-icon .icon {
+				background: url(//misc.360buyimg.com/jdf/1.0.0/unit/shoppingcart/5.0.0/i/settleup-@1x.png) no-repeat;
+				height: 16px;
+				width: 16px;
+				display: inline-block;
+				background-size: 16px 16px;
+				vertical-align: middle;
+				margin-top: -5px;
+			}
+			
+			.scard-box .scard-icon .count {
+				display: inline-block;
+				height: 16px;
+				width: 16px;
+				background: #da1026;
+				color: #fff;
+				border-radius: 100%;
+				line-height: 16px;
+				position: absolute;
+				right: -10px;
+				top: 2px;
+			}
+			
+			.scard-box .scard-dropdown {
+				min-height: 50px;
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="scard-box">
+			<div class="scard-icon">
+				<a href="">我的购物车</a>
+				<i class="icon"></i>
+				<i class="count">0</i>
+			</div>
+			<div class="scard-dropdown"></div>
+		</div>
+	</body>
+
+</html>
