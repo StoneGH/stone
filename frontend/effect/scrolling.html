@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝滚动</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            width: 300px;
+        }
+
+        div {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        ul li {
+            height: 30px;
+            line-height: 30px;
+        }
+    </style>
+    <script src="../../js/jquery-2.2.4.min.js"></script>
+</head>
+<body>
+
+<div>
+    <ul>
+        <li>无缝滚动1</li>
+        <li>无缝滚动2</li>
+        <li>无缝滚动3</li>
+        <li>无缝滚动4</li>
+        <li>sdfasd</li>
+        <li>无缝滚动6</li>
+        <li>无缝滚动7</li>
+        <li>无缝滚动8</li>
+        <li>12341</li>
+        <li>jQuery计时器插件TimeCircles</li>
+        <li>无缝滚动11</li>
+        <li>无缝滚动12</li>
+        <li>无缝滚动13</li>
+        <li>无缝滚动14</li>
+        <li>asd</li>
+        <li>无缝滚动16</li>
+        <li>lkjlzjxlas</li>
+        <li>无缝滚动18</li>
+        <li>就啊善良的风景錒的</li>
+        <li>无缝滚动20</li>
+    </ul>
+</div>
+
+<script src="../../js/jquery-2.2.4.min.js"></script>
+<script>
+    var marginTop = 0;
+    setInterval(function () {
+        $("ul li:eq(0)").animate({"margin-top": marginTop--}, 0, function () {
+            if ((-marginTop) > $(this).height()) {
+                $(this).css({"margin-top": 0}).appendTo($(this).parent());
+                marginTop = 0;
+            }
+        });
+    }, 20);
+</script>
+</body>
+</html>
