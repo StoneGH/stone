@@ -1,114 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>图片预览</title>
-    <link rel="stylesheet" href="../../css/public.css">
-    <script src="../../js/jquery-2.2.4.min.js" type="text/javascript"></script>
-    <style>
-        .goods_img_box {
-            width: 200px;
-            height: 200px;
-            border: 1px solid #666;
-            position: relative;
-            overflow: hidden;
-        }
 
-        .goods_img_box img {
-            width: 100%;
-        }
+	<head>
+		<meta charset="UTF-8">
+		<title>图片预览</title>
+		<link rel="stylesheet" href="../../css/public.css">
+		<script src="../../js/jquery-2.2.4.min.js" type="text/javascript"></script>
+		<style>
+			.goods_img_box {
+				width: 200px;
+				height: 200px;
+				border: 1px solid #666;
+				position: relative;
+				overflow: hidden;
+			}
+			
+			.goods_img_box img {
+				width: 100%;
+			}
+			
+			.goods_img_box .sweep_box {
+				height: 50px;
+				width: 50px;
+				background-color: #000;
+				opacity: .4;
+				position: absolute;
+				top: 0;
+				left: 0;
+				cursor: move;
+				display: none;
+			}
+			
+			.goods_big_img_box {
+				width: 400px;
+				height: 400px;
+				border: 1px solid #666;
+				left: 203px;
+				top: 0;
+				position: absolute;
+				display: none;
+				overflow: hidden;
+			}
+			
+			.goods_big_img_box img {
+				position: absolute;
+			}
+			
+			.goods_small_imgs {
+				width: 200px;
+				text-align: center;
+				overflow: hidden;
+				margin-top: 20px;
+			}
+			
+			.goods_small_imgs img {
+				padding: 5px;
+				border: 2px solid #fff;
+			}
+			
+			.on {
+				border-color: #666 !important;
+			}
+		</style>
+		<script>
+			$(function() {
+				//显示隐藏大图
+				$(".goods_img_box").hover(function() {
+					$(this).find(".sweep_box").show();
+					$(".goods_big_img_box").html('<img src="' + $(this).attr("data-big-img") + ' "/>').show();
+				}, function() {
+					$(".goods_big_img_box").hide();
+					$(this).find(".sweep_box").hide();
+				});
 
-        .goods_img_box .sweep_box {
-            height: 50px;
-            width: 50px;
-            background-color: #000;
-            opacity: .4;
-            position: absolute;
-            top: 0;
-            left: 0;
-            cursor: move;
-            display: none;
-        }
+				//移位
+				$(".goods_img_box").mousemove(function(e) {
+					//              console.log(e.pageX + ":" + e.pageY);
+					var $sweepBox = $(".sweep_box");
+					$sweepBox.css({
+						"left": e.pageX - $sweepBox.width() / 2,
+						"top": e.pageY - $sweepBox.height() / 2
+					});
+					$(".goods_big_img_box img").css({
+						"left": -(e.pageX),
+						"top": -(e.pageY)
+					});
+				});
 
-        .goods_big_img_box {
-            width: 400px;
-            height: 400px;
-            border: 1px solid #666;
-            left: 203px;
-            top: -200px;
-            position: relative;
-            display: none;
-            overflow: hidden;
-        }
+				//选中小图片
+				$(".goods_small_imgs img").click(function() {
+					$(".goods_small_imgs img").removeClass("on");
+					$(this).addClass("on");
+					var srcStr = $(this).attr("src");
+					$(".goods_img_box").attr("data-big-img", srcStr.replace("_50x50", "_600x600")).find("img").attr("src", srcStr.replace("_50x50", "_360x360"));
+				});
+			});
+		</script>
+	</head>
 
-        .goods_big_img_box img {
-            position: absolute;
-        }
+	<body>
+		<!-- 中图 -->
+		<div class="goods_img_box" data-big-img="https://d8.yihaodianimg.com/N10/M04/5B/EA/ChEi21lbnUWAOrOaAAPBg89n5lY88801_600x600.jpg">
+			<img src="https://d6.yihaodianimg.com/V00/M01/97/88/CgQDslPxuzyAH3JbAASR6a4kzX071101_360x360.jpg" />
+			<div class="sweep_box"></div>
+		</div>
+		<!-- 大图-->
+		<div class="goods_big_img_box">
+			<img src="https://d7.yihaodianimg.com/N08/M0A/59/59/ChEi1VlblsaAMFuHAAPq02pHeU433101_600x600.jpg" />
+		</div>
+		<!-- 小图 -->
+		<div class="goods_small_imgs">
+			<img src="https://d8.yihaodianimg.com/N10/M04/5B/EA/ChEi21lbnUWAOrOaAAPBg89n5lY88801_50x50.jpg">
+			<img src="https://d9.yihaodianimg.com/N11/M0B/08/FE/ChEwoFlbnUyAGVnxAALN6dZlMDg03201_50x50.jpg">
+			<img src="https://d9.yihaodianimg.com/N09/M03/8E/11/ChEi2VlbnVKAJIRDAALsDSC0h5875201_50x50.jpg">
+		</div>
+	</body>
 
-        .goods_small_imgs {
-            width: 200px;
-            text-align: center;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        .goods_small_imgs img {
-            padding: 5px;
-            border: 2px solid #fff;
-        }
-
-        .on {
-            border-color: #666 !important;
-        }
-
-    </style>
-    <script>
-        $(function () {
-            //显示隐藏大图
-            $(".goods_img_box").hover(function () {
-                $(this).find(".sweep_box").show();
-                $(".goods_big_img_box").html('<img src="' + $(this).attr("data-big-img") + ' "/>').show();
-            }, function () {
-                $(".goods_big_img_box").hide();
-                $(this).find(".sweep_box").hide();
-            });
-
-            //移位
-            $(".goods_img_box").mousemove(function (e) {
-                console.log(e.pageX + ":" + e.pageY);
-                var $sweepBox = $(".sweep_box");
-                $sweepBox.css({"left": e.pageX - $sweepBox.width() / 2, "top": e.pageY - $sweepBox.height() / 2});
-                $(".goods_big_img_box img").css({
-                    "left": (e.pageX),
-                    "top": (e.pageY)
-                });
-            });
-
-
-            //选中小图片
-            $(".goods_small_imgs img").click(function () {
-                $(".goods_small_imgs img").removeClass("on");
-                $(this).addClass("on");
-                var srcStr = $(this).attr("src");
-                $(".goods_img_box").attr("data-big-img", srcStr.replace("_50x50", "_600x600")).find("img").attr("src", srcStr.replace("_50x50", "_360x360"));
-            });
-        });
-
-    </script>
-</head>
-<body>
-<div class="goods_img_box"
-     data-big-img="https://d8.yihaodianimg.com/N10/M04/5B/EA/ChEi21lbnUWAOrOaAAPBg89n5lY88801_600x600.jpg">
-    <img src="https://d6.yihaodianimg.com/V00/M01/97/88/CgQDslPxuzyAH3JbAASR6a4kzX071101_360x360.jpg"/>
-    <div class="sweep_box"></div>
-    <div class="goods_big_img_box">
-        <img src="https://d7.yihaodianimg.com/N08/M0A/59/59/ChEi1VlblsaAMFuHAAPq02pHeU433101_600x600.jpg"/>
-    </div>
-</div>
-<div class="goods_small_imgs">
-    <img src="https://d8.yihaodianimg.com/N10/M04/5B/EA/ChEi21lbnUWAOrOaAAPBg89n5lY88801_50x50.jpg">
-    <img src="https://d9.yihaodianimg.com/N11/M0B/08/FE/ChEwoFlbnUyAGVnxAALN6dZlMDg03201_50x50.jpg">
-    <img src="https://d9.yihaodianimg.com/N09/M03/8E/11/ChEi2VlbnVKAJIRDAALsDSC0h5875201_50x50.jpg">
-</div>
-</body>
 </html>
