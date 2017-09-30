@@ -164,6 +164,7 @@
 					//添加商品
 					shopCard.add_goods(new Goods(id, name, price, pic, 1, info)).calc();
 					console.log(shopCard);
+					$(".scard-box .count").text(shopCard["sc_count"]);
 				});
 			});
 		</script>
