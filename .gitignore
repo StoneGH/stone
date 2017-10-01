@@ -1,3 +1,5 @@
 .project
-.iml
+*.iml
 .yml
+.idea
+.DS_Store
