@@ -67,7 +67,7 @@
             //显示隐藏大图
             $(".goods_img_box").hover(function () {
                 $(this).find(".sweep_box").show();
-                $(".goods_big_img_box").html('<img src="' + $(this).attr("data-big-img") + ' "/>').show();
+                $(".goods_big_img_box").html('<img src="' + $(this).attr("data-big-img") + '" />').show();
             }, function () {
                 $(".goods_big_img_box").hide();
                 $(this).find(".sweep_box").hide();
@@ -90,7 +90,7 @@
                 $(".goods_small_imgs img").removeClass("on");
                 $(this).addClass("on");
                 var srcStr = $(this).attr("src");
-                $(".goods_img_box").attr("data-big-img", srcStr.replace("_50x50", "_600x600")).find("img").attr("src", srcStr.replace("_50x50", "_360x360"));
+                $(".goods_img_box").attr("data-big-img", srcStr.replace("_50x50", "_600x600")).children("img").attr("src", srcStr.replace("_50x50", "_360x360"));
             });
         });
 
@@ -99,10 +99,9 @@
 <body>
 <div class="goods_img_box"
      data-big-img="https://d8.yihaodianimg.com/N10/M04/5B/EA/ChEi21lbnUWAOrOaAAPBg89n5lY88801_600x600.jpg">
-    <img src="https://d6.yihaodianimg.com/V00/M01/97/88/CgQDslPxuzyAH3JbAASR6a4kzX071101_360x360.jpg"/>
+    <img src="https://d8.yihaodianimg.com/N10/M04/5B/EA/ChEi21lbnUWAOrOaAAPBg89n5lY88801_360x360.jpg"/>
     <div class="sweep_box"></div>
     <div class="goods_big_img_box">
-        <img src="https://d7.yihaodianimg.com/N08/M0A/59/59/ChEi1VlblsaAMFuHAAPq02pHeU433101_600x600.jpg"/>
     </div>
 </div>
 <div class="goods_small_imgs">
