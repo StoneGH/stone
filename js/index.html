@@ -3,12 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style type="text/css">
+    </style>
 </head>
 <body>
-<div id="d1"></div>
-<script type="text/javascript" src="time.js"></script>
+<div></div>
 <script>
-    Stone_Time.formart("mm-dd").bind("#d1");
+    (function () {
+        var date = new Date();
+        setInterval(function () {
+            date = new Date();
+        }, 1000)
+        var time = {
+            "format": "",
+            "show": function (dom) {
+                setInterval(function () {
+                    document.querySelector(dom).innerText = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                }, 1000);
+            }
+        };
+        this.Time = time;
+    })();
+    Time.show("div");
 </script>
 </body>
 </html>
