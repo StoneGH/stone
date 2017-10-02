@@ -81,9 +81,9 @@
             border-bottom: none;
         }
 
-        /*商品列表样式 begein*/
+        /*购物车订单样式 begein*/
 
-        .goods_list {
+        .order_list {
         }
 
         .goods_list ul li {
@@ -112,6 +112,46 @@
         }
 
         /*商品列表样式 end*/
+
+        /* 购物车订单数据 begin*/
+        .order_list {
+            width: 300px;
+        }
+
+        .order_list .item {
+            width: 300px;
+        }
+
+        .order_list .item .pic, .order_list .item .info, .order_list .item .data {
+            float: left;
+            padding: 5px;
+        }
+
+        .order_list .item .pic {
+            width: 50px;
+
+        }
+
+        .order_list .item .pic img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .order_list .item .info {
+            width: 160px;
+            vertical-align: middle;
+        }
+
+        .order_list .item .data {
+            width: 60px;
+            text-align: right;
+        }
+
+        .order_list .item .data span {
+            padding-left: 5px;
+        }
+
+        /* 购物车订单数据 end*/
     </style>
     <script type="text/javascript">
         //商品对象
@@ -150,22 +190,46 @@
                 this["sc_total"] = total;
                 return this;
             },
-            "bind": function (dom) {
-                $(dom).innerHTML
+            "bind": function (countDom, goodsDom) {
+                $(countDom).text(this["sc_count"]);
+                var html = '';
+                if (this["sc_goods"].length < 1) {
+                    html = '<div class="nogoods"> 购物车中还没有商品，赶紧选购吧！</div>';
+                } else {
+                    html += '<div class="order_list">';
+                    for (var i = 0; i < this["sc_goods"].length; i++) {
+                        var goods = this["sc_goods"][i];
+                        html += '<div val="' + goods.id + '" class="item clearfix">';
+                        html += '<div class="pic"><img src="' + goods.pic + '"/></div>';
+                        html += '<div class="info">' + goods.info + '</div>';
+                        html += '<div class="data">';
+                        html += '<p><strong>' + goods.price + '</strong><span>x' + goods.count + '</span></p>';
+                        html += '<a href="#" class="del">删除</a>';
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                    html += '</div>';
+                }
+                $(goodsDom).html(html);
+                return this;
+            },
+            "del": function (id) {
+                if (null == id || '' == id) {
+                    return this;
+                }
+                for (var i = 0; i < this["sc_goods"].length; i++) {
+                    if (this["sc_goods"][i].id == id) {
+                        this["sc_count"] -= this["sc_goods"][i].count;
+                        this["sc_goods"].splice(i, 1);
+                        return this;
+                    }
+                }
+                return this;
             }
         };
 
         $(function () {
             //控制购物车显示和隐藏
-//            $(".scard-box").mouseover(function () {
-//                $(".scard-box .scard-icon").css("border-bottom", "none");
-//                $(".scard-box,.scard-dropdown").addClass("hover").show();
-//            });
-//            $(".scard-box").mouseout(function () {
-//                $(".scard-box .scard-icon").css("border-bottom", "1px solid #ddd");
-//                $(".scard-box,.scard-dropdown").removeClass("hover");
-//                $(".scard-dropdown").hide();
-//            });
 
             $(".add_scard a").click(function () {
                 //获取商品数据
@@ -176,9 +240,15 @@
                 var name = $li.find(".info:eq(0)").text().substr(0, 20);
                 var info = $li.find(".info:eq(0)").text();
                 //添加商品
-                shopCard.add_goods(new Goods(id, name, price, pic, 1, info)).calc();
+                shopCard.add_goods(new Goods(id, name, price, pic, 1, info)).calc().bind(".scard-box .count", ".scard-dropdown");
                 console.log(shopCard);
-                $(".scard-box .count").text(shopCard["sc_count"]);
+                return false;
+            });
+
+            //删除购物车商品
+            $(".scard-dropdown").delegate('.del', "click", function () {
+                var id = $(this).parent().parent().attr("val");
+                shopCard.del(id).bind(".scard-box .count", ".scard-dropdown");
                 return false;
             });
         });
@@ -196,6 +266,20 @@
         <div class="nogoods">
             购物车中还没有商品，赶紧选购吧！
         </div>
+        <!--<div class="order_list">-->
+        <!--<div class="item clearfix">-->
+        <!--<div class="pic"><img-->
+        <!--src="https://img12.360buyimg.com/n5/jfs/t3916/35/1545028667/200093/2508e430/587c5986N769ebc71.jpg"/>-->
+        <!--</div>-->
+        <!--<div class="info">-->
+        <!--【16盒装】伊利 安慕希希腊风味常温酸奶原味205g*16盒-->
+        <!--</div>-->
+        <!--<div class="data">-->
+        <!--<p><strong>67.80</strong><span>x1</span></p>-->
+        <!--<a href="#" class="del">删除</a>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
     </div>
 </div>
 
