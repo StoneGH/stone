@@ -34,10 +34,12 @@ sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
 C:\server\mysql-5.7.19-win32\bin\mysqld.exe
 ```
 	[my.ini下载地址](./images/mysql/my.ini)
+	[配置信息详解](http://www.cnblogs.com/Ray-xujianguo/p/3322455.htmli)
 	<p style="background-color:#f4f4f4;padding:5px;color:#555;"><span style="color:red;">注：</span>这个配置文件需要放到bin目录下！！！</p>
 
 
 6. 启动mysql服务```net start mysql```
+
 	![停止MySQL服务](./images/mysql/start_sc.png)
 
 7. 配置环境变量（将mysql到bin目录配置到mysql中）
