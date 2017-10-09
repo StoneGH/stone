@@ -1,226 +1,331 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>购物车</title>
-		<link rel="stylesheet" type="text/css" href="../../css/public.css" />
-		<link rel="stylesheet" type="text/css" href="../../css/layout.css" />
-		<script type="text/javascript" src="../../js/jquery-2.2.4.min.js"></script>
-		<style type="text/css">
-			.scard-box {
-				height: 40px;
-				width: 150px;
-				background-color: #fff;
-				text-align: center;
-				position: absolute;
-				right: 200px;
-				top: 100px;
-				background: #F9F9F9;
-			}
-			
-			.scard-box .scard-icon {
-				display: inline-block;
-				line-height: 40px;
-				position: relative;
-				width: 100%;
-				z-index: 99;
-				border: 1px solid #ddd;
-			}
-			
-			.scard-box .scard-icon a {
-				color: #f30213;
-			}
-			
-			.scard-box .scard-icon .icon {
-				background: url(//misc.360buyimg.com/jdf/1.0.0/unit/shoppingcart/5.0.0/i/settleup-@1x.png) no-repeat;
-				height: 16px;
-				width: 16px;
-				display: inline-block;
-				background-size: 16px 16px;
-				vertical-align: middle;
-				margin-top: -5px;
-			}
-			
-			.scard-box .scard-icon .count {
-				display: inline-block;
-				height: 16px;
-				width: 16px;
-				background: #da1026;
-				color: #fff;
-				border-radius: 100%;
-				line-height: 16px;
-				position: absolute;
-				right: 25px;
-				top: 2px;
-			}
-			
-			.scard-box .scard-dropdown {
-				min-height: 50px;
-				width: 300px;
-				right: -2px;
-				position: absolute;
-				display: none;
-				z-index: -1;
-				border: 1px solid #ddd;
-				margin-top: -2px;
-			}
-			
-			.hover {
-				background: #fff;
-			}
-			
-			.nogoods {
-				width: 300px;
-				height: 50px;
-				line-height: 50px;
-			}
-			/*商品列表样式*/
-			
-			.goods_list {}
-			
-			.goods_list ul li {
-				width: 200px;
-				text-align: center;
-				float: left;
-				margin: 10px;
-				border: 1px dashed #cacaca;
-				padding: 10px;
-			}
-			
-			.goods_list ul li:hover {
-				border: 1px solid red;
-			}
-			
-			.goods_list ul li .info {
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-			}
-			
-			.goods_list ul li .add_scard {
-				display: inline-block;
-				padding: 5px 15px;
-				border: 1px solid #ccc;
-			}
-		</style>
-		<script type="text/javascript">
-			//商品对象
-			function Goods(id, name, price, pic, count, info) {
-				this.id = id;
-				this.name = name;
-				this.price = price;
-				this.pic = pic;
-				this.count = count;
-				this.info = info;
-			}
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <link rel="stylesheet" type="text/css" href="../../css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/layout.css"/>
+    <script type="text/javascript" src="../../js/jquery-2.2.4.min.js"></script>
+    <style type="text/css">
+        .scard-box {
+            width: 150px;
+            position: relative;
+            left: 1000px;
+            top: 100px;
+            z-index: 1;
+        }
 
-			//购物车对象
-			var shopCard = {
-				"sc_goods": [],
-				"sc_count": 0,
-				"sc_total": 0,
-				"add_goods": function(goods) {
-					for(var i = 0; i < this["sc_goods"].length; i++) {
-						if(this["sc_goods"][i].id == goods.id) {
-							this["sc_goods"][i].count = this["sc_goods"][i].count + 1;
-							return this;
-						}
-					}
-					this["sc_goods"].push(goods);
-					return this;
-				},
-				"calc": function() { //计算总金额&数量
-					var count = 0;
-					var total = 0.0;
-					for(var i = 0; i < this["sc_goods"].length; i++) {
-						count += this["sc_goods"][i].count;
-						total += this["sc_goods"][i].count * this["sc_goods"][i].price;
-					}
-					this["sc_count"] = count;
-					this["sc_total"] = total;
-				}
-			};
+        .scard-box .scard-icon {
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+            background-color: #fff;
+            text-align: center;
+            background: #F9F9F9;
+            border: 1px solid #ddd;
+            position: absolute;
+            z-index: 3;
+        }
 
-			$(function() {
-				//控制购物车显示和隐藏
-				$(".scard-box").hover(function() {
-					$(".scard-box .scard-icon").css("border-bottom", "none");
-					$(".scard-box,.scard-dropdown").addClass("hover").show();
-				}, function() {
-					$(".scard-box .scard-icon").css("border-bottom", "1px solid #ddd");
-					$(".scard-box,.scard-dropdown").removeClass("hover");
-					$(".scard-dropdown").hide();
-				});
+        .scard-box .scard-icon a {
+            color: #f30213;
+        }
 
-				$(".add_scard a").click(function() {
-					//获取商品数据
-					var $li = $(this).parent().parent();
-					var id = $li.attr("id");
-					var pic = $li.find("img:eq(0)").attr("src");
-					var price = $li.find("i:eq(0)").text();
-					var name = $li.find(".info:eq(0)").text().substr(0, 20);
-					var info = $li.find(".info:eq(0)").text();
-					//添加商品
-					shopCard.add_goods(new Goods(id, name, price, pic, 1, info)).calc();
-					console.log(shopCard);
-					$(".scard-box .count").text(shopCard["sc_count"]);
-				});
-			});
-		</script>
-	</head>
+        .scard-box .scard-icon .icon {
+            background: url(//misc.360buyimg.com/jdf/1.0.0/unit/shoppingcart/5.0.0/i/settleup-@1x.png) no-repeat;
+            height: 16px;
+            width: 16px;
+            display: inline-block;
+            background-size: 16px 16px;
+            vertical-align: middle;
+            margin-top: -5px;
+        }
 
-	<body>
-		<div class="scard-box">
-			<div class="scard-icon">
-				<a href="">我的购物车</a>
-				<i class="icon"></i>
-				<i class="count">0</i>
-			</div>
-			<div class="scard-dropdown">
-				<div class="nogoods">
-					购物车中还没有商品，赶紧选购吧！
-				</div>
-			</div>
-		</div>
+        .scard-box .scard-icon .count {
+            display: inline-block;
+            height: 16px;
+            width: 16px;
+            background: #da1026;
+            color: #fff;
+            border-radius: 100%;
+            line-height: 16px;
+            position: absolute;
+            right: 25px;
+            top: 2px;
+        }
 
-		<div class="goods_list">
-			<ul class="clearfix">
-				<li id="g_001">
-					<div><img src="//img10.360buyimg.com/n4/s160x160_jfs/t9061/94/2362356243/193556/e3e1981c/59cb8fe9N0c1235ca.jpg" /></div>
-					<p class="info">喜先智能手环手表 血压心率运动睡眠健康检测计步器 来电短信微信提醒 适用于安卓苹果华为小米 黑色</p>
-					<div>
-						<em>￥</em>
-						<i>228.00</i>
-					</div>
-					<div class="add_scard">
-						<a href="#">加入购物车</a>
-					</div>
-				</li>
-				<li id="g_002">
-					<div><img src="//img10.360buyimg.com/n4/s160x160_jfs/t9061/94/2362356243/193556/e3e1981c/59cb8fe9N0c1235ca.jpg" /></div>
-					<p class="info">喜先智能手环手表 血压心率运动睡眠健康检测计步器 来电短信微信提醒 适用于安卓苹果华为小米 黑色</p>
-					<div>
-						<em>￥</em>
-						<i>228.00</i>
-					</div>
-					<div class="add_scard">
-						<a href="#">加入购物车</a>
-					</div>
-				</li>
-				<li id="003">
-					<div><img src="//img10.360buyimg.com/n4/s160x160_jfs/t9061/94/2362356243/193556/e3e1981c/59cb8fe9N0c1235ca.jpg" /></div>
-					<p class="info">喜先智能手环手表 血压心率运动睡眠健康检测计步器 来电短信微信提醒 适用于安卓苹果华为小米 黑色</p>
-					<div>
-						<em>￥</em>
-						<i>228.00</i>
-					</div>
-					<div class="add_scard">
-						<a href="#">加入购物车</a>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</body>
+        .scard-box .scard-dropdown {
+            width: 300px;
+            border: 1px solid #ddd;
+            background: #fff;
+            position: absolute;
+            right: -2px;
+            display: none;
+            top: 40px;
+            z-index: 2;
+        }
+
+        .scard-box .scard-dropdown .nogoods {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .scard-box:hover .scard-dropdown {
+            display: block;
+        }
+
+        .scard-box:hover .scard-icon {
+            background: #fff;
+            border-bottom: none;
+        }
+
+        /*购物车订单样式 begein*/
+
+        .order_list {
+        }
+
+        .goods_list ul li {
+            width: 200px;
+            text-align: center;
+            float: left;
+            margin: 10px;
+            border: 1px dashed #cacaca;
+            padding: 10px;
+        }
+
+        .goods_list ul li:hover {
+            border: 1px solid red;
+        }
+
+        .goods_list ul li .info {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .goods_list ul li .add_scard {
+            display: inline-block;
+            padding: 5px 15px;
+            border: 1px solid #ccc;
+        }
+
+        /*商品列表样式 end*/
+
+        /* 购物车订单数据 begin*/
+        .order_list {
+            width: 300px;
+        }
+
+        .order_list .item {
+            width: 300px;
+        }
+
+        .order_list .item .pic, .order_list .item .info, .order_list .item .data {
+            float: left;
+            padding: 5px;
+        }
+
+        .order_list .item .pic {
+            width: 50px;
+
+        }
+
+        .order_list .item .pic img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .order_list .item .info {
+            width: 160px;
+            vertical-align: middle;
+        }
+
+        .order_list .item .data {
+            width: 60px;
+            text-align: right;
+        }
+
+        .order_list .item .data span {
+            padding-left: 5px;
+        }
+
+        /* 购物车订单数据 end*/
+    </style>
+    <script type="text/javascript">
+        //商品对象
+        function Goods(id, name, price, pic, count, info) {
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.pic = pic;
+            this.count = count;
+            this.info = info;
+        }
+
+        //购物车对象
+        var shopCard = {
+            "sc_goods": [],
+            "sc_count": 0,
+            "sc_total": 0,
+            "add_goods": function (goods) {
+                for (var i = 0; i < this["sc_goods"].length; i++) {
+                    if (this["sc_goods"][i].id == goods.id) {
+                        this["sc_goods"][i].count = this["sc_goods"][i].count + 1;
+                        return this;
+                    }
+                }
+                this["sc_goods"].push(goods);
+                return this;
+            },
+            "calc": function () { //计算总金额&数量
+                var count = 0;
+                var total = 0.0;
+                for (var i = 0; i < this["sc_goods"].length; i++) {
+                    count += this["sc_goods"][i].count;
+                    total += this["sc_goods"][i].count * this["sc_goods"][i].price;
+                }
+                this["sc_count"] = count;
+                this["sc_total"] = total;
+                return this;
+            },
+            "bind": function (countDom, goodsDom) {
+                $(countDom).text(this["sc_count"]);
+                var html = '';
+                if (this["sc_goods"].length < 1) {
+                    html = '<div class="nogoods"> 购物车中还没有商品，赶紧选购吧！</div>';
+                } else {
+                    html += '<div class="order_list">';
+                    for (var i = 0; i < this["sc_goods"].length; i++) {
+                        var goods = this["sc_goods"][i];
+                        html += '<div val="' + goods.id + '" class="item clearfix">';
+                        html += '<div class="pic"><img src="' + goods.pic + '"/></div>';
+                        html += '<div class="info">' + goods.info + '</div>';
+                        html += '<div class="data">';
+                        html += '<p><strong>' + goods.price + '</strong><span>x' + goods.count + '</span></p>';
+                        html += '<a href="#" class="del">删除</a>';
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                    html += '</div>';
+                }
+                $(goodsDom).html(html);
+                return this;
+            },
+            "del": function (id) {
+                if (null == id || '' == id) {
+                    return this;
+                }
+                for (var i = 0; i < this["sc_goods"].length; i++) {
+                    if (this["sc_goods"][i].id == id) {
+                        this["sc_count"] -= this["sc_goods"][i].count;
+                        this["sc_goods"].splice(i, 1);
+                        return this;
+                    }
+                }
+                return this;
+            }
+        };
+
+        $(function () {
+            //控制购物车显示和隐藏
+
+            $(".add_scard a").click(function () {
+                //获取商品数据
+                var $li = $(this).parent().parent();
+                var id = $li.attr("id");
+                var pic = $li.find("img:eq(0)").attr("src");
+                var price = $li.find("i:eq(0)").text();
+                var name = $li.find(".info:eq(0)").text().substr(0, 20);
+                var info = $li.find(".info:eq(0)").text();
+                //添加商品
+                shopCard.add_goods(new Goods(id, name, price, pic, 1, info)).calc().bind(".scard-box .count", ".scard-dropdown");
+                console.log(shopCard);
+                return false;
+            });
+
+            //删除购物车商品
+            $(".scard-dropdown").delegate('.del', "click", function () {
+                var id = $(this).parent().parent().attr("val");
+                shopCard.del(id).bind(".scard-box .count", ".scard-dropdown");
+                return false;
+            });
+        });
+    </script>
+</head>
+
+<body>
+<div class="scard-box">
+    <div class="scard-icon">
+        <a href="">我的购物车</a>
+        <i class="icon"></i>
+        <i class="count">0</i>
+    </div>
+    <div class="scard-dropdown">
+        <div class="nogoods">
+            购物车中还没有商品，赶紧选购吧！
+        </div>
+        <!--<div class="order_list">-->
+        <!--<div class="item clearfix">-->
+        <!--<div class="pic"><img-->
+        <!--src="https://img12.360buyimg.com/n5/jfs/t3916/35/1545028667/200093/2508e430/587c5986N769ebc71.jpg"/>-->
+        <!--</div>-->
+        <!--<div class="info">-->
+        <!--【16盒装】伊利 安慕希希腊风味常温酸奶原味205g*16盒-->
+        <!--</div>-->
+        <!--<div class="data">-->
+        <!--<p><strong>67.80</strong><span>x1</span></p>-->
+        <!--<a href="#" class="del">删除</a>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+
+<div class="goods_list">
+    <ul class="clearfix">
+        <li id="g_001">
+            <div><img
+                    src="//img10.360buyimg.com/n4/s160x160_jfs/t9061/94/2362356243/193556/e3e1981c/59cb8fe9N0c1235ca.jpg"/>
+            </div>
+            <p class="info">喜先智能手环手表 血压心率运动睡眠健康检测计步器 来电短信微信提醒 适用于安卓苹果华为小米 黑色</p>
+            <div>
+                <em>￥</em>
+                <i>228.00</i>
+            </div>
+            <div class="add_scard">
+                <a href="#">加入购物车</a>
+            </div>
+        </li>
+        <li id="g_002">
+            <div><img
+                    src="//img10.360buyimg.com/n4/s160x160_jfs/t9061/94/2362356243/193556/e3e1981c/59cb8fe9N0c1235ca.jpg"/>
+            </div>
+            <p class="info">喜先智能手环手表 血压心率运动睡眠健康检测计步器 来电短信微信提醒 适用于安卓苹果华为小米 黑色</p>
+            <div>
+                <em>￥</em>
+                <i>228.00</i>
+            </div>
+            <div class="add_scard">
+                <a href="#">加入购物车</a>
+            </div>
+        </li>
+        <li id="003">
+            <div><img
+                    src="//img10.360buyimg.com/n4/s160x160_jfs/t9061/94/2362356243/193556/e3e1981c/59cb8fe9N0c1235ca.jpg"/>
+            </div>
+            <p class="info">喜先智能手环手表 血压心率运动睡眠健康检测计步器 来电短信微信提醒 适用于安卓苹果华为小米 黑色</p>
+            <div>
+                <em>￥</em>
+                <i>228.00</i>
+            </div>
+            <div class="add_scard">
+                <a href="#">加入购物车</a>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
 
 </html>

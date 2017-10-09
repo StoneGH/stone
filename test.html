@@ -1,3 +1,41 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cat = {
+        "name": "小猫", "eat": function () {
+            alert("吃东西！");
+        }
+    };
+    console.log(cat);
+    function Cat(name) {
+        return {
+            "name": name, "eat": function () {
+                alert("吃东西！");
+            }
+        };
+    }
+    var cat1 = Cat("猫猫");
+    console.log(cat1);
+
+    function Animal(name) {
+        this.name = name;
+        this.eat = function () {
+            alert("吃东西！");
+        }
+    }
+    var cat2 = new Animal("小狗");
+    console.log(cat2);
+    var cat3 = new Animal("小小狗");
+    console.log(Animal.prototype);
+</script>
+</body>
+=======
 <!DOCTYPE html>
 <html>
 
@@ -13,4 +51,5 @@
 		</div>
 	</body>
 
+>>>>>>> dec962a6fc3da9174bc97ae3edd123783c31133e
 </html>
