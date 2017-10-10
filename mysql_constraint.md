@@ -1,8 +1,8 @@
-## <center>MySQL参考手册</center>
+## <center>MySQL 约束</center>
 
-> ### Windows下安装MySQL（mysql-5.7.19-win32.zip/免安装版本）
+> ### NOT NULL(非空约束)
 
-1. [mysql官网](https://dev.mysql.com/downloads/mysql/)下载mysql-5.7.19-win32.zip包，解压到指定目录
+1. 添加非空约束
 
 
 2. (非管理员用户以管理员运行 CMD) DOS命令行进入mysql的目录
@@ -101,11 +101,3 @@ C:\server\mysql-5.7.19-win32\bin\mysqld.exe
 
 3. 刷新权限
 	```FLUSH PRIVILEGES;```
-
-
-<br/>
-<br/>
-<br/>
-
- [MySQL基本操作](https://stonegh.github.io/stone/mysql_base)
- [MySQL约束参考](http://blog.csdn.net/a909301740/article/details/62887992)
