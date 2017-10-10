@@ -101,3 +101,10 @@ C:\server\mysql-5.7.19-win32\bin\mysqld.exe
 
 3. 刷新权限
 	```FLUSH PRIVILEGES;```
+
+
+<br/>
+<br/>
+<br/>
+
+ [MySQL约束参考](http://blog.csdn.net/a909301740/article/details/62887992)
