@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片闪烁</title>
+    <script src="../../js/jquery-2.2.4.min.js"></script>
+    <style type="text/css">
+        @keyframes twinkle {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /*img:hover {*/
+        /*animation: twinkle .8s infinite;*/
+        /*}*/
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            var timer;
+            $("img").hover(function () {
+                twinkle();
+                timer = setInterval(function () {
+                    twinkle();
+                }, 1000);
+            }, function () {
+                clearInterval(timer);
+            });
+        });
+
+        function twinkle() {
+            $("img").animate({"opacity": "0.3"}, 500, function () {
+                $(this).animate({"opacity": "1"}, 500);
+            });
+        }
+    </script>
+</head>
+<body>
+<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509899291247&di=35676b5c2da2f99d64aa75abb6bae208&imgtype=0&src=http%3A%2F%2Fwww.cnhuadong.net%2Fuploadfiles%2Fimages%2F2013-10-17%2F201310178392jpg65748.jpg"/>
+</body>
+</html>

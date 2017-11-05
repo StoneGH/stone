@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>返回顶部</title>
+    <link rel="stylesheet" type="text/css" href="../../css/public.css"/>
+    <script src="../../js/jquery-2.2.4.min.js"></script>
+    <style type="text/css">
+        div {
+            height: 2000px;
+            width: 100%;
+        }
+
+        a {
+            font-size: 50px;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #CCCCCC;
+            text-align: center;
+            position: fixed;
+            right: 100px;
+            bottom: 100px;
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $(document).scroll(function () {
+                var winHeight = $(window).height();
+                var scrollTop = $(document).scrollTop();
+                if (scrollTop > winHeight) {
+                    $("a").show();
+                } else {
+                    $("a").hide();
+                }
+            });
+
+            $("a").click(function () {
+                $("html,body").animate({"scrollTop": "0px"}, 1000);
+            });
+        });
+    </script>
+</head>
+<body>
+
+</body>
+<div></div>
+<a href="javascript:;">^</a>
+</html>
