@@ -20,4 +20,5 @@
 
 #配置用户
 >git config --global user.email "您的邮箱"
+
 >git config --global user.name "您的昵称"
