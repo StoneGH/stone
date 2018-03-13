@@ -138,20 +138,20 @@
            value="AppId=1&Id=637183558&Timestamp=1520926444&Callback=&signature=57250934413E2D38D0DD40B469E7525D"/>
 </div>
 <script type="text/javascript">
-    var repeat = 0 //enter 0 to not repeat scrolling after 1 run, othersise, enter 1
-    var title = document.title
-    var leng = title.length
-    var start = 1
+    var repeat = 0; //enter 0 to not repeat scrolling after 1 run, othersise, enter 1
+    var title = document.title;
+    var leng = title.length;
+    var start = 1;
     function titlemove() {
-        titl = title.substring(start, leng) + title.substring(0, start)
-        document.title = titl
-        start++
+        titl = title.substring(start, leng) + title.substring(0, start);
+        document.title = titl;
+        start++;
         if (start == leng + 1) {
-            start = 0
+            start = 0;
             if (repeat == 0)
-                return
+                return;
         }
-        setTimeout("titlemove()", 300)
+        setTimeout("titlemove()", 300);
     }
     if (document.title)
         titlemove()
