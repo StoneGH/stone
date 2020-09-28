@@ -125,8 +125,8 @@ C:\server\mysql-5.7.19-win32\bin\mysqld.exe
 #### MYSQL 事务
 事务并发引发的三大问题：
 	1.脏读：事务A读取到事务B更新回滚的数据。
-	2.不可重复读： 
-	3.幻读：
+	2.不可重复读： 事务A两次去读的数据不一样（事务A第二次读取的是事务B修改后的数据）。
+	3.幻读：事务A第一次获取n条数据，事务B添加了m行数据，事务A第二次获取的数据是n+m条。
 1.ACID特性
 2.隔离级别
 	https://ask.qcloudimg.com/http-save/yehe-2728002/hdyvs2vd12.jpeg?imageView2/2/w/1620
