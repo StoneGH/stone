@@ -114,9 +114,16 @@ C:\server\mysql-5.7.19-win32\bin\mysqld.exe
  
  
  #### MSYQL 锁
- 1.共享锁（读锁）：允许多个连接并发的读取统一资源。
- 2.排他锁（写锁）：写的同时阻塞其他写或读操作，保证同一时刻只能有一个连接写入数据。
- 3.锁策略
+ 1.共享锁（读锁/S锁）：允许多个连接并发的读取统一资源。
+ 	加锁方式：SELECT * FROM table LOCK IN SHARE MODE
+	释锁方式：COMMIT/ROLLBACK
+ 2.排他锁（写锁/X锁）：写的同时阻塞其他写或读操作，保证同一时刻只能有一个连接写入数据。
+ 	INSERT/DELETE/UPDATE默认加了X锁
+ 	加锁方式：SELECT * FROM table FOR UPDATE
+	释锁方式：COMMIT/ROLLBACK
+ 3.意向共享锁（表锁/IS）
+ 4.意向排他锁（表锁/IX）
+ 5.锁策略
 	表锁：
 	行锁：
 	
@@ -134,5 +141,9 @@ C:\server\mysql-5.7.19-win32\bin\mysqld.exe
 	2.READ COMMITTED(提交读):一个事务开始之后，只能看见已提交事务做的修改，会出现不可重复读。
 	3.REPEATABLE READ(可重复读):同一事务中多次去读数据的结果是一样的，会出现幻读（除InDB外）。
 	4.SERIALIZABLE(可串行化):最高的隔离级别，强制所有事务串行执行。
-	
+
+
+
+
+参考：https://www.cnblogs.com/wangkaihua/archive/2019/01/03/10217490.html
 	
