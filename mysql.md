@@ -122,3 +122,13 @@ C:\server\mysql-5.7.19-win32\bin\mysqld.exe
 	
 	
 	
+#### MYSQL 事务
+1.ACID特性
+2.隔离级别
+	https://ask.qcloudimg.com/http-save/yehe-2728002/hdyvs2vd12.jpeg?imageView2/2/w/1620
+	1.READ UNCOMMITTED(未提交读):
+	2.READ COMMITTED(提交读):
+	3.REPEATABLE READ(可重复读):
+	4.SERIALIZABLE(可串行化):
+	
+	
