@@ -110,3 +110,15 @@ C:\server\mysql-5.7.19-win32\bin\mysqld.exe
  [MySQL基本操作](https://stonegh.github.io/stone/mysql_base)
  <br/>
  [MySQL约束参考](http://blog.csdn.net/a909301740/article/details/62887992)
+ 
+ 
+ 
+ #### MSYQL 锁
+ 1.共享锁（读锁）：允许多个连接并发的读取统一资源。
+ 2.排他锁（写锁）：写的同时阻塞其他写或读操作，保证同一时刻只能有一个连接写入数据。
+ 3.锁策略
+ 	
+	
+	
+	
+	
