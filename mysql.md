@@ -130,9 +130,9 @@ C:\server\mysql-5.7.19-win32\bin\mysqld.exe
 1.ACID特性
 2.隔离级别
 	https://ask.qcloudimg.com/http-save/yehe-2728002/hdyvs2vd12.jpeg?imageView2/2/w/1620
-	1.READ UNCOMMITTED(未提交读):
-	2.READ COMMITTED(提交读):
-	3.REPEATABLE READ(可重复读):
-	4.SERIALIZABLE(可串行化):
+	1.READ UNCOMMITTED(未提交读):事务未提交的数据，对其他事务也是可见的，会出现脏读。
+	2.READ COMMITTED(提交读):一个事务开始之后，只能看见已提交事务做的修改，会出现不可重复读。
+	3.REPEATABLE READ(可重复读):同一事务中多次去读数据的结果是一样的，会出现幻读（除InDB外）。
+	4.SERIALIZABLE(可串行化):最高的隔离级别，强制所有事务串行执行。
 	
 	
