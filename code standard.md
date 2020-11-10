@@ -11,25 +11,24 @@
     core:
 
 * persist：持久层（包含model和mapper）
-<br/>
-<br/>
+
 
 >#### 包
 
-* `com.hchl.framework.xxx`:框架相关
-* `com.hchl.framework.common.xxx`:公共工具
-* `com.hchl.framework.base.xxx`:公共封装（全局的枚举、常量、异常等）
-* `com.hchl.framework.core.xxx`:核心代码
-* `com.hchl.项目名.persist.model`:
-* `com.hchl.项目名.persist.mapper`:
-* `com.hchl.项目名.service`:
-* `com.hchl.项目名.service.impl`:
-* `com.hchl.项目名.controller`:
-* `com.hchl.项目名.config`:
-* `com.hchl.项目名.constant`:
-* `com.hchl.项目名.enums`:
-* `com.hchl.项目名.exception`:
-* `com.hchl.项目名.controller`:
+* `com.bagel.framework.xxx`:框架相关
+* `com.bagel.framework.common.xxx`:公共工具
+* `com.bagel.framework.base.xxx`:公共封装（全局的枚举、常量、异常等）
+* `com.bagel.framework.core.xxx`:核心代码
+* `com.bagel.项目名.persist.model`:
+* `com.bagel.项目名.persist.mapper`:
+* `com.bagel.项目名.service`:
+* `com.bagel.项目名.service.impl`:
+* `com.bagel.项目名.controller`:
+* `com.bagel.项目名.config`:
+* `com.bagel.项目名.constant`:
+* `com.bagel.项目名.enums`:
+* `com.bagel.项目名.exception`:
+* `com.bagel.项目名.controller`:
 
 
 
@@ -71,7 +70,7 @@ IDEA工具设置注释模板参考：https://blog.csdn.net/shadow_zed/article/de
 
 ##### 类注释格式：
 
-![image](/uploads/31826af2b74a4984724ece2fe956177c/image.png)
+![image](http://120.55.190.190:9759/doc/PDS/uploads/31826af2b74a4984724ece2fe956177c/image.png)
 
 ```
 /**
@@ -86,7 +85,7 @@ IDEA工具设置注释模板参考：https://blog.csdn.net/shadow_zed/article/de
 
 ##### 方法注释格式：
 
-![image](/uploads/47f8681862b4383e9e3f3e878f5d9627/image.png)
+![image](http://120.55.190.190:9759/doc/PDS/uploads/47f8681862b4383e9e3f3e878f5d9627/image.png)
 
 ```
 *
@@ -99,9 +98,9 @@ $Params$
 ```
 
 ```
-groovyScript("def result=''; def params=\"${_1}\".replaceAll('[\\\\[|\\\\]|\\\\s]', '').split(',').toList(); for(i = 0; i < params.size(); i++) {result+='* @Param: ' + params[i] + ((i < params.size() - 1) ? '\\n' : '')}; return result", methodParameters());
+groovyScript("def result=''; def params="${_1}".replaceAll('[\\\\[|\\\\]|\\\\s]', '').split(',').toList(); for(i = 0; i < params.size(); i++) {result+='* @Param: ' + params[i] + ((i < params.size() - 1) ? '\\n' : '')}; return result", methodParameters());
 ```
-<br/>
+
 
 >### 异常
 
