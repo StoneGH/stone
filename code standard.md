@@ -70,7 +70,7 @@ IDEA工具设置注释模板参考：https://blog.csdn.net/shadow_zed/article/de
 
 ##### 类注释格式：
 
-![image](http://120.55.190.190:9759/doc/PDS/uploads/31826af2b74a4984724ece2fe956177c/image.png)
+![image](https://stonegh.github.io/stone/images/c_s_1.png)
 
 ```
 /**
@@ -85,7 +85,7 @@ IDEA工具设置注释模板参考：https://blog.csdn.net/shadow_zed/article/de
 
 ##### 方法注释格式：
 
-![image](http://120.55.190.190:9759/doc/PDS/uploads/47f8681862b4383e9e3f3e878f5d9627/image.png)
+![image](https://stonegh.github.io/stone/images/c_s_2.png)
 
 ```
 *
